@@ -14,12 +14,19 @@ view the end of page for the core technical specifications
 
 #### By using gSOAP:
 #### gSOAP is a C and C++ software development toolkit for SOAP/XML web services. So now the meter can send and receive requests to and from the head-end system. Also for the grid purpose, we need the meters to be able to communicate with each other, so we need a web server on each meter. 
+
 ![server on meter need drawio (4)](https://user-images.githubusercontent.com/51336081/166916352-fd125232-7e62-4096-87d5-b89f728fe1b4.png)
 
 ## Test the gSOAP REST API on Meter 
 ### By send request to get the results of ML models stored in sqlite database stored on the meter
 
+![image](https://user-images.githubusercontent.com/51336081/166920112-f4679512-2766-4744-8fc5-69ae2b93b250.png)
+## Result from meter itself(direct)
 ![image](https://user-images.githubusercontent.com/51336081/166918314-3c8c71d0-94bb-44b0-8e67-53b7c4016754.png)
+
+## Result From the meter through the cloud
+![get result form meter through cloud](https://user-images.githubusercontent.com/51336081/166920369-2df8ebde-ba52-40dc-982c-06d2831728ea.png)
+
 
 ## Getting Started
 ```
