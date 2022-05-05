@@ -1,5 +1,5 @@
 # Server On Meter
-
+view the end of page for the core technical specifications
 ## The server on meter:
 #### We need to be able to send requests to the meter. Like, turn it on/off.
 
@@ -17,8 +17,28 @@
 ![server on meter need drawio (4)](https://user-images.githubusercontent.com/51336081/166916352-fd125232-7e62-4096-87d5-b89f728fe1b4.png)
 
 ## Test the gSOAP REST API on Meter 
-### By send request to get the results of ML models stored in sqlight database stored on the meter
+### By send request to get the results of ML models stored in sqlite database stored on the meter
 
 ![image](https://user-images.githubusercontent.com/51336081/166918314-3c8c71d0-94bb-44b0-8e67-53b7c4016754.png)
+
+## Getting Started
+'''
+  1-clone the repo
+  2-change directory to smart-meter/Server-on-meter/
+  3-run the server by ./server
+  4-make sure the server is running by enter url in browser http://localhost:8080/
+'''
+
+## Caution:
+'''
+  1- you need to install gcc if not installed
+  2- make sure that the meter_db is in the same location as the server  
+'''
+
+## Technical Specifications
+'''
+gSOAP version 
+sqlite datebase
+'''
 
 
