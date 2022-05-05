@@ -1,6 +1,5 @@
 package com.root.meter.api;
 
-import com.root.meter.DTO.EnergyConsumptionView;
 import com.root.meter.DTO.EnergyView;
 import com.root.meter.DTO.ReadingDTO;
 import com.root.meter.model.Reading;
@@ -47,15 +46,15 @@ public class ReadingApi {
      * @return
      */
     @GetMapping("/get/period")
-    public List<ReadingDTO> getReadingBetweenTwoTimeStamps(
+    public List<EnergyView> getReadingBetweenTwoTimeStamps(
+            @RequestParam("meterId")Long meterId,
             @RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
             @RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end){
-
-        return  readingService.getReadingsBetween2TimeStamps(start.atStartOfDay(), end.atStartOfDay());
+        return  readingService.getEnergyAndAmountBetween2DatesByMeterId(meterId, start.atStartOfDay(), end.atStartOfDay());
     }
     //return the readings of the last week
     @GetMapping("/getReadingsOf/last/week")
     public List<EnergyView> getReadingsOfLastWeek(@RequestParam("meterId")Long meterId){
-        return  readingService.getLastWeekReadingByMeterId(meterId,LocalDateTime.now().minusWeeks(1), LocalDateTime.now());
+        return  readingService.getEnergyAndAmountBetween2DatesByMeterId(meterId,LocalDateTime.now().minusWeeks(1), LocalDateTime.now());
     }
 }
