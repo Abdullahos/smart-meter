@@ -1,6 +1,5 @@
 package com.root.meter.service;
 
-import com.root.meter.DTO.EnergyConsumptionView;
 import com.root.meter.DTO.EnergyView;
 import com.root.meter.DTO.ReadingDTO;
 import com.root.meter.enums.Months;
@@ -166,7 +165,7 @@ public class ReadingService {
         return namedParameterJdbcTemplate.queryForObject("SELECT TOP 1 amount FROM reading where meter_id = :id", namedParameters, Double.class);
     }
 
-    public List<EnergyView> getLastWeekReadingByMeterId(Long meterId, LocalDateTime start, LocalDateTime end){
+    public List<EnergyView> getEnergyAndAmountBetween2DatesByMeterId(Long meterId, LocalDateTime start, LocalDateTime end){
         final String GET_LAST_WEEK_CONSUMPTION =
                 "select new com.root.meter.DTO.EnergyView(r.date, sum(r.energy), sum(r.amount)) " +
                         "from Reading r " +
