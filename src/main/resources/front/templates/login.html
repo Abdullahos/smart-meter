@@ -1,0 +1,83 @@
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width", initial-scale=1.0>
+        <title>Login Form</title>
+        <link rel="stylesheet" type="text/css" media="all" href="/css/style.css">
+    </head>
+        <body>
+            <div class="loginbox">
+                <img src="https://drive.google.com/uc?id=1Ywr7-IpUr9n8dD62mP-6x7zeGCTwewr6" class="avatar">
+                <h1>Login here</h1>
+                <form id="inputform" method="post">
+
+
+                  <div class="form-group">
+                     <label for="name">Username</label>
+                     <input type="input" class="form-control" name="name" id="name" placeholder="Enter Username" maxlength="20" required>
+                   </div>
+
+                  <div class="form-group">
+                      <label for="password">Password</label>
+                      <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password" maxlength="20" required>
+                  </div>
+
+                  <div class="form-group">
+                      <input type="submit" value="login"/>
+                  </div>
+                    <br>
+                    <div id="result">
+                    </div>
+                </form>
+            </div>
+            <div class="text-box">
+                <h1>/root</h1>
+            </div>
+            <p>
+                first:<span id="lat"></span><br>
+                second:<span id="lon"></span>
+            </p>
+            <script>
+                var form = document.getElementById('inputform');
+                form.addEventListener('submit',function(e){
+                    //prevent auto submission
+                   e.preventDefault()
+                   var name = document.getElementById('name').value;
+                   var password = document.getElementById('password').value;
+
+                   //post Username and password in json
+                   fetch("http://localhost:9191/login",{
+                     method:'POST',
+                     body:JSON.stringify({
+                        name : name,
+                        password: password
+                   }),
+                headers:{
+                    "Content-Type":"application/json; charset=UTF-8"
+                    }
+                })
+                .then(function(response){
+                return response.json()
+                })
+                .then(function(data){
+                    var res = document.getElementById('result')
+                    res.innerHTML = '<h1>Success Login</h1><br><button onclick="displayConsumption(\'http://localhost:9191/chart\')">View Your Consumption</button>'
+                })
+              })
+              //fetch the consumption html page and open it in a new tab
+              async function displayConsumption(url){
+                   const response = await fetch(url,{
+                        headers:{Authorization:'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyb290IiwiZXhwIjoxNjQ3NDAxNzg2fQ.njN_thT3zpe8iiP6mbfixn3aGsMTKtnuYJz__uYmWogZqdODWlNWyXxFtVjyTHO4iZPcyIYQUSmR7Ry8MB9OJQ'}
+                      })
+                    .then((response) => response.blob())
+                    .then((blob) => { // RETRIEVE THE BLOB AND CREATE LOCAL URL
+                      var _url = window.URL.createObjectURL(blob);
+                      window.open(_url, "_blank").focus(); // window.open + focus
+                  }).catch((err) => {
+                    console.log(err);
+                    })
+              }
+
+            </script>
+        </body>
+</html>

@@ -1,0 +1,31 @@
+<!-- model to this page:
+        userId, amount, stripePublicKey, currency
+-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>checkout</title>
+</head>
+<body>
+    <form action='/charge' method='POST' id='checkout-form'>
+        <input type='hidden' th:value='${amount}' name='amount' />
+        <input type='hidden' th:value='${userId}' name='userId' />
+        <label>Price:<span th:text='${amount/100}' /></label>
+        <!-- NOTE: data-key/data-amount/data-currency will be rendered by Thymeleaf -->
+        <script
+                src='https://checkout.stripe.com/checkout.js'
+                class='stripe-button'
+                th:attr='data-key=${stripePublicKey},
+             data-amount=${amount},
+             data-currency=${currency}'
+                data-name='/ROOT'
+                data-description=''
+                data-image
+                        ='https://drive.google.com/uc?id=1B4Xq9DMQkfK4HcEMHxQeBKHlnAc1yqrv'
+                data-locale='auto'
+                data-zip-code='false'>
+        </script>
+    </form>
+</body>
+</html>

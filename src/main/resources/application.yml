@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:sqlserver://rootserver.database.windows.net:1433;database=meter;user=mega@rootserver;password=4wwrpYmqpuBDdhq;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+    username: mega
+    password: 4wwrpYmqpuBDdhq
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      dialect : org.hibernate.dialect.SQLServer2012Dialect
+
+server:
+  port: 433
