@@ -1,5 +1,5 @@
 # Meter
-## U can find Full APIs documentations at: http://rooot.azurewebsites.net/swagger-ui.html
+## U can find Full APIs documentations at: https://rooot.azurewebsites.net/swagger-ui.html
 
 ## Backend on the cloud:
 #### We need some services to be in a centralized place to serve many customers and meters.
@@ -25,4 +25,7 @@ Another very important reason is the customer can’t connect directly to his sm
 - The Interaction Between Server on meter(gsoap) and server on cloud
 - ![30](https://user-images.githubusercontent.com/51336081/166924016-9626a6a7-1357-4203-8056-b9fa777766dd.png)
 
-
+## Used Tools:
+- Spring Boot, Date, Security
+- Stripe as payment processor
+-  mssql
