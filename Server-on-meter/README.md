@@ -37,7 +37,7 @@ view the end of page for the core technical specifications
 
 ## Technical Specifications
 ```
-gSOAP version 
+gSOAP version 2.8.120
 sqlite datebase
 ```
 
