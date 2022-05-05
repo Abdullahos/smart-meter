@@ -20,7 +20,6 @@ view the end of page for the core technical specifications
 ## Test the gSOAP REST API on Meter 
 ### By send request to get the results of ML models stored in sqlite database stored on the meter
 
-![image](https://user-images.githubusercontent.com/51336081/166920112-f4679512-2766-4744-8fc5-69ae2b93b250.png)
 ## Result from meter itself(direct)
 ![image](https://user-images.githubusercontent.com/51336081/166918314-3c8c71d0-94bb-44b0-8e67-53b7c4016754.png)
 
