@@ -3,7 +3,7 @@
 ## The server on meter:
 #### We need to be able to send requests to the meter. Like, turn it on/off.
 
-<img src="https://drive.google.com/uc?id=1nKY0-2wrDEspNcT88eVoKdDYg4tS1Jug"/>
+<img src="https://drive.google.com/drive/uc?id=1i38o-0wjIZyUKXEnd_KpJnXXtuT0_"/>
 
 
 #### By using gSOAP:
