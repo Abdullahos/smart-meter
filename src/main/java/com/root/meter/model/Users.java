@@ -17,7 +17,6 @@ public class Users {
     private Meter meter;
     private String name;
     private String email;
-    @JsonIgnore
     private String password;
     private String state;
     private String phone;
