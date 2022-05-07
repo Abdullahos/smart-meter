@@ -43,7 +43,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, SecurityConstants.LOGIN_URL).permitAll()
                 .antMatchers(HttpMethod.POST,SecurityConstants.POST_READINGS_FROM_METER).permitAll()
                 .antMatchers(HttpMethod.POST,SecurityConstants.POST_EVENT).permitAll()
-                .antMatchers(HttpMethod.GET,"/meter/getFromMeter").permitAll()
                 .antMatchers("/css/**", "/js/**","/png/**","/image/**").permitAll()
                 //.anyRequest().authenticated()
 

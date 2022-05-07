@@ -37,16 +37,16 @@ import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     @Autowired
-	 private AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
 
-	 @Autowired
-	 private UserDetailsServiceImpl userDetailsService;
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
 
-	 @Autowired
-     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-	 @Autowired
-     private UserRepo userRepo;
+    @Autowired
+    private UserRepo userRepo;
 
     @Override
     @Autowired
@@ -64,34 +64,39 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req,
                                                 HttpServletResponse res) throws AuthenticationException {
-    	try {
-    		Users user = new ObjectMapper().readValue(req.getInputStream(), Users.class);
-            UserDetails userDetails = userDetailsService.loadUserByUsername(user.getName());
+        try {
+            Users user = new ObjectMapper().readValue(req.getInputStream(), Users.class);
+            System.out.println("pass 1"+user.getPassword());
 
-             if(userDetails!=null) {
-                 Users retrievedUser = new Users();
-                 retrievedUser.setName(userDetails.getUsername());
-                 retrievedUser.setPassword(userDetails.getPassword());
-                 //compare the stored hashed password with the entered one(BCryptPasswordEncoder manage that for us)
-                 String retrievedHashedPass = retrievedUser.getPassword();
-                 String enteredPass = user.getPassword();
-                 //if passwords matches, authenticate
-                 if(bCryptPasswordEncoder.matches(enteredPass,retrievedHashedPass)) {
-                     return authenticationManager.authenticate(
-                             new UsernamePasswordAuthenticationToken(
-                                     user.getName(),
-                                     user.getPassword(),
-                                     new ArrayList<>()));
-                 }
-                 else {
-                     Map<String, Object> jsonRes = new HashMap<>();
-                     jsonRes.put("message", "wrong username or pass");
-                     new ObjectMapper().writeValue(res.getOutputStream(), jsonRes);
-                 }
-             }
+            UserDetails userDetails = userDetailsService.loadUserByUsername(user.getName());
+            System.out.println("pass 2"+user.getPassword());
+
+            if(userDetails!=null) {
+                Users retrievedUser = new Users();
+                retrievedUser.setName(userDetails.getUsername());
+                retrievedUser.setPassword(userDetails.getPassword());
+                //compare the stored hashed password with the entered one(BCryptPasswordEncoder manage that for us)
+                String retrievedHashedPass = retrievedUser.getPassword();
+                String enteredPass = user.getPassword();
+                System.out.println("pass 3"+retrievedUser.getPassword());
+                //if passwords matches, authenticate
+                if(bCryptPasswordEncoder.matches(enteredPass,retrievedHashedPass)) {
+                    return authenticationManager.authenticate(
+                            new UsernamePasswordAuthenticationToken(
+                                    user.getName(),
+                                    user.getPassword(),
+                                    new ArrayList<>()));
+                }
+                else {
+                    Map<String, Object> jsonRes = new HashMap<>();
+                    jsonRes.put("message", "wrong username or pass");
+                    new ObjectMapper().writeValue(res.getOutputStream(), jsonRes);
+                }
+            }
             return null;
 
-    	} catch (Exception e) {
+        } catch (Exception e){
+            e.printStackTrace();
             Map<String, Object> jsonRes = new HashMap<>();
             jsonRes.put("message", "wrong username or pass");
             try {
