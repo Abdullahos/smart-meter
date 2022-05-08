@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>my bill</title>
+    <style>
+    table, th, td {
+      border:1px solid black;
+    }
+    </style>
+</head>
+<body>
+
+    <table style="width:100%">
+    <tr>
+        <th style="width: 20%" scope="col">name</th>
+        <th style="width: 20%" scope="col">amount</th>
+        <th style="width: 20%" scope="col">energy</th>
+        <th style="width: 20%" scope="col">address</th>
+        <th style="width: 20%" scope="col">phone no</th>
+
+
+    </tr>
+        <td scope="row" th:text="${bill.users.name}">Example Note Title</td>
+        <td scope="row" th:text="${bill.amount}">Example Note Title</td>
+        <td scope="row" th:text="${bill.energy}">Example Note Title</td>
+        <td th:text="${bill.users.address}">Example Note Description </td>
+        <td th:text="${bill.users.phone}">Example Note Description </td>
+        </tr>
+    </table>
+
+    <a th:href="@{/checkout(userId=${userId})}">go to checkout </a>
+
+</body>
+</html>
