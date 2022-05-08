@@ -1,4 +1,4 @@
-package com.root.meter.controller;
+package com.root.meter.api;
 
 import com.root.meter.DTO.ChargeRequest;
 import com.root.meter.model.Payment;
@@ -23,7 +23,7 @@ import javax.transaction.Transactional;
  */
 @RestController
 @Transactional  //all or not
-public class ChargeController {
+public class ChargeAPI {
 
     @Autowired
     private StripeService stripPaymentsService;
