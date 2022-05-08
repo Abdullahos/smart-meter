@@ -1,4 +1,4 @@
-package com.root.meter.api;
+package com.root.meter.controller;
 
 import com.root.meter.DTO.ChargeRequest;
 import com.root.meter.model.Payment;
@@ -10,10 +10,10 @@ import com.stripe.model.Charge;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.transaction.Transactional;
 
@@ -21,9 +21,9 @@ import javax.transaction.Transactional;
  * controller that will receive the POST request made by the checkout form and submit
  * the charge to Stripe via our StripeService.
  */
-@RestController
+@Controller
 @Transactional  //all or not
-public class ChargeAPI {
+public class ChargeController {
 
     @Autowired
     private StripeService stripPaymentsService;
@@ -33,13 +33,19 @@ public class ChargeAPI {
     private PaymentService paymentService;
 
     @PostMapping("/charge")
-    public ResponseEntity<Payment> charge(ChargeRequest chargeRequest)
+    public String charge(ChargeRequest chargeRequest, Model model)
             throws StripeException {
         chargeRequest.setCurrency(ChargeRequest.Currency.EUR);
+        System.out.println("charge. before charge");
         Charge charge = stripPaymentsService.charge(chargeRequest);  //perform charge on strip and get the result
+        System.out.println("charge. after charge");
+
         //generate receipt and reset all the debt(amount$ and energy)
         Payment payment_receipt = paymentService.save(chargeRequest);
-        return new ResponseEntity<>(payment_receipt, HttpStatus.OK);
+        model.addAttribute("payment", payment_receipt);
+        System.out.println("charge. saved charge");
+
+        return "paymentResult";
     }
 
     @ExceptionHandler(StripeException.class)

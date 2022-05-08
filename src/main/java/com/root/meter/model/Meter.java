@@ -32,8 +32,8 @@ public class Meter {
     @JsonIgnore
     private List<Reading> ReadingList = new ArrayList<>();
 
-    private Double debt;
-    private Double energyDebt;
+    private Double debt = 0.0;
+    private Double energyDebt = 0.0;
 
     public Meter(Users user) {
         this.userId = user;

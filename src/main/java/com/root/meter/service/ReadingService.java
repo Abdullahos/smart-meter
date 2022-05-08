@@ -67,7 +67,7 @@ public class ReadingService {
         //update meter debt
         amount += meter.getDebt();  //accumulate the old debt
         meter.setDebt(amount);      //set the updated debt
-
+        meter.setEnergyDebt(energyDebt);
         //create new reading object to be saved
         Reading newReading = new Reading(
                 meter,localDateTime, readingDTO.getVolt(),readingDTO.getElectric_current(),energyDebt,amount

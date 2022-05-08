@@ -9,7 +9,7 @@
 </head>
 <body>
     <form action='/charge' method='POST' id='checkout-form'>
-        <input type='hidden' th:value='${amount}' name='amount' />
+-       <input type='hidden' th:value='${amount}' name='amount' />
         <input type='hidden' th:value='${userId}' name='userId' />
         <label>Price:<span th:text='${amount/100}' /></label>
         <!-- NOTE: data-key/data-amount/data-currency will be rendered by Thymeleaf -->

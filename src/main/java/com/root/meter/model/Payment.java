@@ -1,6 +1,5 @@
 package com.root.meter.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,7 +14,7 @@ public class Payment {
     private double amount;  //cents
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private Users userId;
+    private Users users;
 
     private LocalDate localDate;
 
@@ -24,7 +23,7 @@ public class Payment {
 
     public Payment(double amount, Users userId, LocalDate localDate) {
         this.amount = amount;
-        this.userId = userId;
+        this.users = userId;
         this.localDate = localDate;
     }
 
