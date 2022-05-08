@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/bootstrap.min.css}">
+
+
+    <title>my payment result</title>
+    <style>
+    table, th, td {
+      border:1px solid black;
+    }
+    </style>
+</head>
+<body>
+<div class="alert alert-success fill-parent">
+    <h1 class="display-5">Success</h1>
+    <!--<span id="success">Operation succeeded. please Click <a th:href="@{/chart}">here</a> to continue.</span>
+    -->
+</div>
+
+<table style="width:100%">
+    <tr>
+        <th style="width: 20%" scope="col">operation id</th>
+        <th style="width: 20%" scope="col">name</th>
+        <th style="width: 20%" scope="col">amount</th>
+        <th style="width: 20%" scope="col">payment date</th>
+        <th style="width: 13%" scope="col">phone no</th>
+        <th style="width: 27%" scope="col">address</th>
+
+
+
+    </tr>
+    <td scope="row" th:text="${payment.id}">id</td>
+    <td scope="row" th:text="${payment.users.name}">name</td>
+    <td scope="row" th:text="${payment.amount}">amount</td>
+    <td scope="row" th:text="${payment.localDate}">date</td>
+    <td scope="row" th:text="${payment.users.phone}">phone</td>
+    <td scope="row" th:text="${payment.users.address}">address</td>
+    </tr>
+</table>
+
+</body>
+</html>
