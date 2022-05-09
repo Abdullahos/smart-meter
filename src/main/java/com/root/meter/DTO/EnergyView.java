@@ -7,12 +7,12 @@ import java.time.LocalDateTime;
 
 @Data
 public class EnergyView {
-    private LocalDateTime date;
+    private LocalDate date;
     private Double energy;
     private Double amount;
 
     public EnergyView(LocalDateTime date, Double energy, Double amount) {
-        this.date = date;
+        this.date = date.toLocalDate();
         this.energy = energy;
         this.amount = amount;
     }
