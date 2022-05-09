@@ -1,13 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/login.css}">
+    <link rel='icon' href="images/icon.png">
+    <link rel='icon' href="image/icon.png">
 
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width", initial-scale=1.0>
-        <title>Login Form</title>
-        <link rel="stylesheet" type="text/css" media="all" href="/css/style.css">
-    </head>
-        <body>
+</head>
+    <body class="one">
+    <nav>
+        <img src="images/White_LOGO.png">
+    </nav>
             <div class="loginbox">
-                <img src="https://drive.google.com/uc?id=1Ywr7-IpUr9n8dD62mP-6x7zeGCTwewr6" class="avatar">
                 <h1>Login here</h1>
                 <form id="inputform" method="post">
 
@@ -65,7 +72,7 @@
                                }
                                else{
                                 var res = document.getElementById('result')
-                                res.innerHTML = '<h1>Wrong username or/and password</h1>'
+                                res.innerHTML = '<h3>Wrong username or/and password</h3>'
                                 }
                 })
               })
