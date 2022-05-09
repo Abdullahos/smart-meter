@@ -2,34 +2,156 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>my bill</title>
-    <style>
-    table, th, td {
-      border:1px solid black;
-    }
-    </style>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/style.css}">
+    <title>Payment</title>
+    <link rel='icon' type="text/css" media="all" href="images/icon.png">
 </head>
-<body>
-
-    <table style="width:100%">
-    <tr>
-        <th style="width: 20%" scope="col">name</th>
-        <th style="width: 20%" scope="col">amount</th>
-        <th style="width: 20%" scope="col">energy</th>
-        <th style="width: 20%" scope="col">address</th>
-        <th style="width: 20%" scope="col">phone no</th>
-
-
-    </tr>
-        <td scope="row" th:text="${bill.users.name}">Example Note Title</td>
-        <td scope="row" th:text="${bill.amount}">Example Note Title</td>
-        <td scope="row" th:text="${bill.energy}">Example Note Title</td>
-        <td th:text="${bill.users.address}">Example Note Description </td>
-        <td th:text="${bill.users.phone}">Example Note Description </td>
+<body class="four">
+<div class="invoice-box">
+    <table cellpadding="0" cellspacing="0">
+        <tr class="top">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td>
+                            <h4>Electricity Bill</h4>
+                        </td>
+                        <td>
+                            El Sewedy Electric <br>
+                            E-mail: email@gmail.com<br>
+                        </td>
+                    </tr>
+                </table>
+            </td>
         </tr>
+
+        <tr class="heading">
+            <td>Payment Method</td>
+            <td>Payment Currency</td>
+        </tr>
+        <tr class="details">
+            <td>Pay Online</td>
+            <td>EGP</td>
+        </tr>
+        <tr class="heading">
+            <td>Data</td>
+            <td>Details</td>
+        </tr>
+
+        <tr class="item">
+            <td>Your Name : </td>
+            <td scope="row" th:text="${bill.users.name}">Example Note Title</td>
+        </tr>
+        <tr class="item">
+            <td>E-mail : </td>
+            <td  th:text="${bill.users.email}">design</td>
+        </tr>
+        <tr class="item">
+            <td>State : </td>
+            <td  th:text="${bill.users.state}">design</td>
+        </tr>
+        <tr class="item">
+            <td>Phone number : </td>
+            <td th:text="${bill.users.phone}">Example Note Description</td>
+        </tr>
+        <tr class="item">
+            <td>Address : </td>
+            <td th:text="${bill.users.address}">Example Note Description</td>
+        </tr>
+        <tr class="item">
+            <td>Energy consumed : </td>
+            <td scope="row" th:text="${bill.energy}">Example Note Title</td>
+        </tr>
+        <tr class="item">
+            <td>Total amount of money : </td>
+            <td scope="row" th:text="${bill.amount}">Example Note Title</td>
+        </tr>
+        <tr class="item">
+            <td>Last Payment Date : </td>
+            <td  th:text="${bill.lastPaymentDate}">design</td>
+        </tr>
+        <br>
     </table>
+    <br>
 
-    <a th:href="@{/checkout(userId=${userId})}">go to checkout </a>
+    <form action='/charge' method='POST' id='checkout-form'>
+        -       <input type='hidden' th:value='${amount}' name='amount' />
+        <input type='hidden' th:value='${userId}' name='userId' />
+        <label>Price:<span th:text='${amount/100}' /></label>
+        <!-- NOTE: data-key/data-amount/data-currency will be rendered by Thymeleaf -->
+        <script
+                src='https://checkout.stripe.com/checkout.js'
+                class='stripe-button'
+                th:attr='data-key=${stripePublicKey},
+             data-amount=${amount},
+             data-currency=${currency}'
+                data-name='/ROOT'
+                data-description=''
+                data-image
+                        ='https://drive.google.com/uc?id=1B4Xq9DMQkfK4HcEMHxQeBKHlnAc1yqrv'
+                data-locale='auto'
+                data-zip-code='false'>
+        </script>
+    </form>
 
+</div>
+<!-------------------------------------------------------------------------
+    <div class="billing">
+        <h2><font color="06113C">Your bill</font></h2>
+        <hr>
+        <p>
+            User_Id : <span id="user1"></span><br>
+            <br>
+            Username : <span id="user2"></span><br>
+            <br>
+            User_Email : <span id="user3"></span><br>
+            <br>
+            User_State : <span id="user4"></span><br>
+            <br>
+            User_Phone : <span id="user5"></span><br>
+            <br>
+            User_Address : <span id="user6"></span><br>
+            <br>
+            Energy : <span id="energy"></span><br>
+            <br>
+            Amount : <span id="amount"></span><br>
+            <br>
+            Last Payment Date : <span id="paydate"></span><br>
+            <br>
+        </p>
+        <br>
+        <input type="button" class="hero-btn" value="Checkout">
+        <br>
+        <br>
+    </div>
+
+    <script>
+        const api_url= 'https://rooot.azurewebsites.net/generate/Bill?userId=1';
+        async function getdata(){
+            const response = await fetch(api_url);
+            const data = await response.json();
+            const { users, id, name, energy, amount, lastPaymentDate } = data;
+            document.getElementById('user1').textContent = users.id;
+            document.getElementById('user2').textContent = users.name;
+            document.getElementById('user3').textContent = users.email;
+            document.getElementById('user4').textContent = users.state;
+            document.getElementById('user5').textContent = users.phone;
+            document.getElementById('user6').textContent = users.address;
+            document.getElementById('energy').textContent = energy;
+            document.getElementById('amount').textContent = amount;
+            document.getElementById('paydate').textContent = lastPaymentDate;
+
+            console.log(users);
+            console.log(id);
+            console.log(name);
+            console.log(energy);
+            console.log(amount);
+            console.log(lastPaymentDate);
+        }
+        getdata();
+    </script>
+-->
 </body>
 </html>
