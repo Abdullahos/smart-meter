@@ -19,6 +19,7 @@ public class MeterApi {
     @PostMapping("/save")
     public ResponseEntity<Long> save(@Valid @RequestBody Meter meter){
         Long meterID = meterService.save(meter);
+        System.out.println(meter.getUserId().getId());
         if( meterID!= null ){
             return new ResponseEntity<Long>(meterID, HttpStatus.CREATED);
         }

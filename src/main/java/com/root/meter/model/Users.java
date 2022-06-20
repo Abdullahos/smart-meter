@@ -13,7 +13,6 @@ public class Users {
     private Long id;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "meterId")
-    @JsonIgnore
     private Meter meter;
     private String name;
     private String email;
@@ -21,10 +20,6 @@ public class Users {
     private String state;
     private String phone;
     private String address;
-    @JsonIgnore
-    private String creditCardNo;
-    @JsonIgnore
-    private String cvv; //card verification value for payment online or over the phone.
 
     public Long getId() {
         return id;
@@ -90,19 +85,4 @@ public class Users {
         this.address = address;
     }
 
-    public String getCreditCardNo() {
-        return creditCardNo;
-    }
-
-    public void setCreditCardNo(String creditCardNo) {
-        this.creditCardNo = creditCardNo;
-    }
-
-    public String getCvv() {
-        return cvv;
-    }
-
-    public void setCvv(String cvv) {
-        this.cvv = cvv;
-    }
 }

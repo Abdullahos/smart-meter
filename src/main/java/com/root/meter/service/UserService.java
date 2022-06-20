@@ -25,8 +25,6 @@ public class UserService {
     private UserRepo userRepository;
     @Autowired
     private MeterService meterService;
-    @Autowired
-    private ReadingService readingService;
 
     /**
      * create user and meter and assign them to each other
@@ -37,11 +35,10 @@ public class UserService {
         Users user = dtoToUser(userDTO);
         //assign user to meter
         Meter meter = new Meter(user);
+        meterService.save(meter);
         //assign meter to user
         user.setMeter(meter);
         //save user
-        meterService.save(meter);
-        //save and return user
         return userRepository.save(user);
     }
 
@@ -71,6 +68,7 @@ public class UserService {
         //TODO: dto may be null (check)
         Users user = new Users();
         BeanUtils.copyProperties(dto, user);
+        if(dto.getMeterId()!=null)  user.setMeter(meterService.findById(dto.getMeterId()));
         return user;
     }
 
@@ -138,5 +136,9 @@ public class UserService {
         }
         //TODO: replace this with suitable
         return 0.0;
+    }
+
+    public Users findByName(String name) {
+       return userRepository.findByName(name);
     }
 }

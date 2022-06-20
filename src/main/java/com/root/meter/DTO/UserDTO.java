@@ -1,9 +1,15 @@
 package com.root.meter.DTO;
 
 
-import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
+import javax.validation.constraints.NotNull;
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDTO {
+    private Long id;
     private Long meterId;
     @NotNull(message="username can't be null")
     private String name;
@@ -19,10 +25,6 @@ public class UserDTO {
     private String phone;
     @NotNull(message="user address can't be null")
     private String address;
-    @NotNull(message="user's credit card number can't be null")
-    private String creditCardNo;
-    @NotNull(message="user's cvv can't be null")
-    private String  cvv; //card verification value for payment online or over the phone.
 
     public Long getMeterId() {
         return meterId;
@@ -80,22 +82,6 @@ public class UserDTO {
         this.address = address;
     }
 
-    public String getCreditCardNo() {
-        return creditCardNo;
-    }
-
-    public void setCreditCardNo(String creditCardNo) {
-        this.creditCardNo = creditCardNo;
-    }
-
-    public String getCvv() {
-        return cvv;
-    }
-
-    public void setCvv(String cvv) {
-        this.cvv = cvv;
-    }
-
     public String getConfirmPassword() {
         return confirmPassword;
     }
@@ -103,4 +89,13 @@ public class UserDTO {
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 }
