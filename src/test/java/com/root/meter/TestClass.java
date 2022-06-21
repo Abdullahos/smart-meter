@@ -28,6 +28,7 @@ import javax.transaction.Transactional;
 @RunWith(JUnitParamsRunner.class)
 @Transactional
 public class TestClass {
+    /*
     @Autowired
     private TestRestTemplate testRestTemplate;
 
@@ -48,4 +49,5 @@ public class TestClass {
     public void retrieveUser(){
 
     }
+     */
 }
