@@ -16,7 +16,7 @@ public class Meter {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId")
     @JsonIgnore //to avoid infinite recursion meter->user->meter->user->....
     private Users userId;
