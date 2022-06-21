@@ -19,7 +19,6 @@ public class MeterApi {
     @PostMapping("/save")
     public ResponseEntity<Long> save(@Valid @RequestBody Meter meter){
         Long meterID = meterService.save(meter);
-        System.out.println(meter.getUserId().getId());
         if( meterID!= null ){
             return new ResponseEntity<Long>(meterID, HttpStatus.CREATED);
         }
@@ -33,6 +32,7 @@ public class MeterApi {
         Meter meter = meterService.findById(meterId);
         return ResponseEntity.ok(meter);
     }
+    //gsoap
     @GetMapping("/getFromMeter")
     public Mono<String> getFromMeter() {
         //Meter meter = meterService.findById(meterId);
