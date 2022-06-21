@@ -14,9 +14,10 @@ public class Payment {
     private double amount;  //cents
     @ManyToOne
     @JoinColumn(name = "user_id")
+
     private Users users;
 
-    private LocalDate localDate;
+    private LocalDate paymentDate;
 
     public Payment() {
     }
@@ -24,7 +25,7 @@ public class Payment {
     public Payment(double amount, Users userId, LocalDate localDate) {
         this.amount = amount;
         this.users = userId;
-        this.localDate = localDate;
+        this.paymentDate = localDate;
     }
 
 }

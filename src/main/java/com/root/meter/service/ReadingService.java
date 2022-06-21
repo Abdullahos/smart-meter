@@ -129,9 +129,6 @@ public class ReadingService {
      */
     public List<ReadingDTO> getReadingsBetween2TimeStamps(LocalDateTime start, LocalDateTime end) {
         Optional<List<Reading>> optReadingList = readingRepo.findAllByDateBetween(start, end);
-        System.out.println(start);
-        System.out.println(end);
-
         if(optReadingList.isPresent()){
             List<ReadingDTO> dailyReadingDTOS = new ArrayList<>();
             List<Reading> dailyReadings = optReadingList.get();
