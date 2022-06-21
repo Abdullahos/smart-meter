@@ -13,10 +13,8 @@ public class ReadingDTO {
     @NotNull(message="timeStamp can't be null")
     private String date;
     @NotNull(message="volt can't be null")
-    @JsonIgnore
     private Double volt;
     @NotNull(message="current can't be null")
-    @JsonIgnore
     private Double electric_current;
     @NotNull(message="energy can't be null")
     private Double energy;

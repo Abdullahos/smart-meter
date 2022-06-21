@@ -32,11 +32,11 @@ public class Reading {
     public Reading() {
     }
 
-    public Reading(Meter meter, LocalDateTime date, Double volt, Double current, Double energy, Double amount) {
+    public Reading(Meter meter, LocalDateTime date, Double volt, Double electric_current, Double energy, Double amount) {
         this.meter = meter;
         this.date = date;
         this.volt = volt;
-        this.electric_current = current;
+        this.electric_current = electric_current;
         this.energy = energy;
         this.amount = amount;
     }

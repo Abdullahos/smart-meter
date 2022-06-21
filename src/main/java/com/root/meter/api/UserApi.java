@@ -45,7 +45,6 @@ public class UserApi {
             return new ResponseEntity<Users>(savedUser,HttpStatus.CREATED);
         }
     }
-
     @GetMapping("/find/ById")
     public ResponseEntity<Users> get(@RequestParam Long id){
         Users savedUser = userService.findById(id);

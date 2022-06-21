@@ -11,8 +11,5 @@ spring:
       dialect : org.hibernate.dialect.SQLServer2012Dialect
 
 server:
-  port: 433
+  port: 9191
 
-#security:
- # basic:
-  #  enabled: false

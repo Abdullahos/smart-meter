@@ -1,16 +1,12 @@
 package com.root.meter.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -26,20 +22,18 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
  */
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-@Profile(value = {"!test"})
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
-	
-	private UserDetailsServiceImpl userDetailsService;
+
+    private UserDetailsServiceImpl userDetailsService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private JWTAuthenticationFilter jwtAuthenticationFilter;
-	
+
     public WebSecurityConfiguration(UserDetailsServiceImpl userDetailsService,
-			BCryptPasswordEncoder bCryptPasswordEncoder) {
-		this.userDetailsService = userDetailsService;
-		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-	}
+                                    BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userDetailsService = userDetailsService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -49,6 +43,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, SecurityConstants.LOGIN_URL).permitAll()
                 .antMatchers(HttpMethod.POST,SecurityConstants.POST_READINGS_FROM_METER).permitAll()
                 .antMatchers(HttpMethod.POST,SecurityConstants.POST_EVENT).permitAll()
+                .antMatchers(HttpMethod.GET,"/meter/getFromMeter").permitAll()
                 .antMatchers("/css/**", "/js/**","/png/**","/image/**").permitAll()
                 //.anyRequest().authenticated()
 
@@ -68,19 +63,19 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout").deleteCookies("JSESSIONID").invalidateHttpSession(true);
 
         http.exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED));
-}
+    }
 
     @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-    
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.parentAuthenticationManager(authenticationManagerBean())
-            .userDetailsService(userDetailsService)
-            .passwordEncoder(bCryptPasswordEncoder);
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(bCryptPasswordEncoder);
     }
 
 }
