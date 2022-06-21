@@ -32,4 +32,8 @@ public class PaymentService {
     public List<PaymentView> getPaymentsBetween2DatesByUserId(Long userId, LocalDate start, LocalDate end) {
         return paymentRepo.findAmountAndPaymentDateByUsersIdAndPaymentDateBetween(userId, start, end);
     }
+    public List<PaymentView> getPaymentsOfGiveDateAndUserId(Long userId, LocalDate date){
+        return paymentRepo.findByUsersIdAndPaymentDate(userId, date);
+    }
 }
+

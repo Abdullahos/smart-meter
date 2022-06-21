@@ -11,4 +11,6 @@ import java.util.List;
 public interface PaymentRepo extends CrudRepository<Payment,Long> {
 
     List<PaymentView> findAmountAndPaymentDateByUsersIdAndPaymentDateBetween(Long userId, LocalDate start, LocalDate end);
+
+    List<PaymentView> findByUsersIdAndPaymentDate(Long userId, LocalDate date);
 }

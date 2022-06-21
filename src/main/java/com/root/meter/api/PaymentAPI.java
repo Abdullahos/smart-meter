@@ -18,10 +18,15 @@ public class PaymentAPI {
     @Autowired
     private PaymentService paymentService;
 
-    @GetMapping("get/by/date")
+    @GetMapping("get/betweenDates")
     public List<PaymentView> get(@RequestParam("userId") Long userId,
                                  @RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
                                  @RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end){
         return paymentService.getPaymentsBetween2DatesByUserId(userId, start, end);
+    }
+    @GetMapping("get/by/date")
+    public List<PaymentView> get(@RequestParam("userId") Long userId,
+                                 @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date){
+        return paymentService.getPaymentsOfGiveDateAndUserId(userId,date);
     }
 }
