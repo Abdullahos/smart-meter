@@ -50,8 +50,7 @@ public class UserService {
     public UserDTO userToDTO(Users user){
         UserDTO dto = new UserDTO();
         BeanUtils.copyProperties(user, dto);
-        //TODO: user && || meter may be null (check)
-        dto.setMeterId(user.getMeter().getId());
+        if(user.getMeter()!=null)   dto.setMeterId(user.getMeter().getId());
         return dto;
     }
     public Users dtoToUser(UserDTO dto){
@@ -128,7 +127,7 @@ public class UserService {
         return 0.0;
     }
 
-    public Users findByName(String name) {
-       return userRepository.findByName(name);
+    public UserDTO findByName(String name) {
+       return userToDTO(userRepository.findByName(name));
     }
 }

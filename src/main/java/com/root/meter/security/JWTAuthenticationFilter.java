@@ -2,8 +2,10 @@ package com.root.meter.security;
 
 import com.auth0.jwt.JWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.root.meter.DTO.UserDTO;
 import com.root.meter.model.Users;
 import com.root.meter.repo.UserRepo;
+import com.root.meter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -46,7 +48,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    private UserRepo userRepo;
+    private UserService userService;
 
     @Override
     @Autowired
@@ -113,7 +115,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             HttpServletResponse res,
                                             FilterChain chain,
                                             Authentication auth) throws IOException, ServletException {
-        final Users userByName = userRepo.findByName(((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getUsername());
+        final UserDTO userByName = userService.findByName(((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getUsername());
         String token = JWT.create()
                 .withSubject(((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))

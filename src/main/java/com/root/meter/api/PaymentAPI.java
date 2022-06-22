@@ -20,7 +20,7 @@ public class PaymentAPI {
     private PaymentService paymentService;
 
     @PostMapping("/save")
-    public Payment save(@RequestBody ChargeRequest chargeRequest){
+    public PaymentView save(@RequestBody ChargeRequest chargeRequest){
         return paymentService.save(chargeRequest);
     }
 
@@ -32,7 +32,11 @@ public class PaymentAPI {
     }
     @GetMapping("get/by/date")
     public List<PaymentView> get(@RequestParam("userId") Long userId,
-                                 @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date){
+                                 @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date){
         return paymentService.getPaymentsOfGiveDateAndUserId(userId,date);
+    }
+    @GetMapping("get/by/userId")
+    public PaymentView getLastPaymentByUserId(@RequestParam("userId")Long userId){
+        return paymentService.getLastPaymentOfUser(userId);
     }
 }

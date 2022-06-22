@@ -63,8 +63,8 @@ public class UserApi {
         return new ResponseEntity<Users>(savedUser,HttpStatus.OK);
     }
     @GetMapping("/find/ByName")
-    public ResponseEntity<Users> get(@RequestParam String name){
-        Users savedUser = userService.findByName(name);
-        return new ResponseEntity<Users>(savedUser,HttpStatus.OK);
+    public ResponseEntity<UserDTO> get(@RequestParam String name){
+        UserDTO savedUser = userService.findByName(name);
+        return new ResponseEntity<UserDTO>(savedUser,HttpStatus.OK);
     }
 }

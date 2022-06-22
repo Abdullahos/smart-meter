@@ -35,14 +35,17 @@ public class MeterService {
 
     public void resetDebt(Long userId) {
         Meter meter = meterRepo.findByUserId(userId);
-            meter.setDebt(0.0);
+        meter.setDebt(0.0);
+        meterRepo.save(meter);
         //TODO: exception
     }
 
     public void resetEnergyDebt(Long userId) {
         Meter meter = meterRepo.findByUserId(userId);
-            meter.setEnergyDebt(0.0);
-        }
+        meter.setEnergyDebt(0.0);
+        meterRepo.save(meter);
+
+    }
         //TODO: exception
 
     public MeterDTO findByUserId(Long userId) {

@@ -1,6 +1,7 @@
 package com.root.meter.controller;
 
 import com.root.meter.DTO.ChargeRequest;
+import com.root.meter.DTO.PaymentView;
 import com.root.meter.model.Payment;
 import com.root.meter.service.MeterService;
 import com.root.meter.service.PaymentService;
@@ -41,7 +42,7 @@ public class ChargeController {
         System.out.println("charge. after charge");
 
         //generate receipt and reset all the debt(amount$ and energy)
-        Payment payment_receipt = paymentService.save(chargeRequest);
+        PaymentView payment_receipt = paymentService.save(chargeRequest);
         model.addAttribute("payment", payment_receipt);
         System.out.println("charge. saved charge");
 
