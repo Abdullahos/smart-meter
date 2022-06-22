@@ -58,9 +58,9 @@ public class UserApi {
         }
     }
     @GetMapping("/find/ById")
-    public ResponseEntity<Users> get(@RequestParam Long id){
-        Users savedUser = userService.findById(id);
-        return new ResponseEntity<Users>(savedUser,HttpStatus.OK);
+    public ResponseEntity<UserDTO> get(@RequestParam Long id){
+        UserDTO savedUser = userService.userToDTO(userService.findById(id));
+        return new ResponseEntity<UserDTO>(savedUser,HttpStatus.OK);
     }
     @GetMapping("/find/ByName")
     public ResponseEntity<UserDTO> get(@RequestParam String name){

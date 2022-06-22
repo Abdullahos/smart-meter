@@ -22,6 +22,6 @@ public class BillAPI {
         Users user = userService.findById(userId);
         double debt = user.getMeter().getDebt();
         Double energyDebt = user.getMeter().getEnergyDebt();
-        return new ResponseEntity<Bill>(new Bill(user, energyDebt, debt, LocalDate.now()), HttpStatus.OK);
+        return new ResponseEntity<Bill>(new Bill(userService.userToDTO(user), energyDebt, debt, LocalDate.now()), HttpStatus.OK);
     }
 }
