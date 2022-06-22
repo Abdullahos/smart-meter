@@ -1,6 +1,7 @@
 package com.root.meter.api;
 
 import com.root.meter.DTO.UserDTO;
+import com.root.meter.model.Meter;
 import com.root.meter.model.Users;
 import com.root.meter.service.MeterService;
 import com.root.meter.service.UserService;
@@ -22,7 +23,7 @@ public class UserApi {
     @Autowired
     private MeterService meterService;
     @PostMapping("/create")
-    public ResponseEntity<Users> save(@Valid @RequestBody UserDTO userDTO){
+    public ResponseEntity<UserDTO> save(@Valid @RequestBody UserDTO userDTO){
         //TODO : add email checker NO DUPs
         //if passwords doesn't match
         if(!userDTO.getPassword().equals(userDTO.getConfirmPassword())) {
@@ -36,13 +37,24 @@ public class UserApi {
         String hashedPass = bCryptPasswordEncoder.encode(userDTO.getPassword());
         //store hashed password in the userDTO
         userDTO.setPassword(hashedPass);
-        //save user
-        Users savedUser = userService.save(userDTO);      //user not saved -> server error
+        //convert dto to user
+        Users user = userService.dtoToUser(userDTO);
+        Users temp = user;
+        //CREATE NEW USER
+        if(userDTO.getId()==null){
+            temp = userService.save(user);
+            //assign saved user(got id) to meter
+            Meter meter = new Meter(temp);
+            meterService.save(meter);
+            //assign meter to user
+            temp.setMeter(meter);
+        }
+        Users savedUser = userService.save(temp);
         if(savedUser == null){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         else {
-            return new ResponseEntity<Users>(savedUser,HttpStatus.CREATED);
+            return new ResponseEntity<UserDTO>(userService.userToDTO(savedUser),HttpStatus.CREATED);
         }
     }
     @GetMapping("/find/ById")

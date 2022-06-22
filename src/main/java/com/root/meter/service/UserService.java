@@ -7,12 +7,9 @@ import com.root.meter.model.Users;
 import com.root.meter.repo.UserRepo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.math.BigDecimal;
-import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -28,17 +25,10 @@ public class UserService {
 
     /**
      * create user and meter and assign them to each other
-     * @param userDTO
+     * @param user
      * @return the saved user
      */
-    public Users save(UserDTO userDTO){
-        Users user = dtoToUser(userDTO);
-        //assign user to meter
-        Meter meter = new Meter(user);
-        meterService.save(meter);
-        //assign meter to user
-        user.setMeter(meter);
-        //save user
+    public Users save(Users user){
         return userRepository.save(user);
     }
 

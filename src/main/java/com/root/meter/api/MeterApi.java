@@ -1,5 +1,6 @@
 package com.root.meter.api;
 
+import com.root.meter.DTO.MeterDTO;
 import com.root.meter.model.Meter;
 import com.root.meter.service.MeterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +29,9 @@ public class MeterApi {
         }
     }
     @GetMapping("/get")
-    public ResponseEntity<Meter> get(@RequestParam Long meterId){
+    public ResponseEntity<MeterDTO> get(@RequestParam Long meterId){
         Meter meter = meterService.findById(meterId);
-        return ResponseEntity.ok(meter);
+        return ResponseEntity.ok(meterService.toDto(meter));
     }
     //gsoap
     @GetMapping("/getFromMeter")
@@ -40,5 +41,9 @@ public class MeterApi {
         //call meter server to get the response
         WebClient webClient = WebClient.create("http://localhost:8080");
         return webClient.get().retrieve().bodyToMono(String.class);
+    }
+    @GetMapping("get/by/userid")
+    public MeterDTO getByUserId(@RequestParam("userId")Long userId){
+        return meterService.findByUserId(userId);
     }
 }

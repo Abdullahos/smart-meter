@@ -1,8 +1,11 @@
 package com.root.meter.api;
 
 import com.root.meter.DTO.EnergyView;
+import com.root.meter.DTO.MeterDTO;
 import com.root.meter.DTO.ReadingDTO;
+import com.root.meter.model.Meter;
 import com.root.meter.model.Reading;
+import com.root.meter.service.MeterService;
 import com.root.meter.service.ReadingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,6 +23,9 @@ import java.util.List;
 public class ReadingApi {
     @Autowired
     private ReadingService readingService;
+    @Autowired
+    private MeterService meterService;
+
     @PostMapping("/post")
     public ResponseEntity<Reading> save(@RequestBody ReadingDTO readingDTO){
         Reading reading = readingService.save(readingDTO);
@@ -45,12 +51,20 @@ public class ReadingApi {
      * retrieve all readings of given hour
      * @return
      */
-    @GetMapping("/get/period")
-    public List<EnergyView> getReadingBetweenTwoTimeStamps(
+    @GetMapping("/get/by/meterId/period")
+    public List<EnergyView> get_Reading_Between_Two_TimeStamps_By_MeterId(
             @RequestParam("meterId")Long meterId,
             @RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
             @RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end){
         return  readingService.getEnergyAndAmountBetween2DatesByMeterId(meterId, start.atStartOfDay(), end.atStartOfDay());
+    }
+    @GetMapping("/get/period")
+    public List<EnergyView> get_Reading_Between_Two_TimeStamps_by_userId(
+            @RequestParam("userId")Long userId,
+            @RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
+            @RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end){
+        MeterDTO meter = meterService.findByUserId(userId);
+        return  readingService.getEnergyAndAmountBetween2DatesByMeterId(meter.getId(), start.atStartOfDay(), end.atStartOfDay());
     }
     //return the readings of the last week
     @GetMapping("/getReadingsOf/last/week")
