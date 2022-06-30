@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 
 @Data
 public class ReadingDTO {
+
     private Long meterId;
     @NotNull(message="timeStamp can't be null")
     private String date;
