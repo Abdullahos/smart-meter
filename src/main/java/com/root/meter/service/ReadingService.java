@@ -64,7 +64,8 @@ public class ReadingService {
         double amount = readingDTO.getEnergy() * statePricePerKWH;  //in cents
         //get month
         String oldDate = readingDTO.getDate();
-        LocalDateTime localDateTime = STPMTimeStampToLocalDateTime(oldDate);
+        LocalDateTime localDateTime = convertTimeStamp(oldDate);
+                //STPMTimeStampToLocalDateTime(oldDate);
         //update meter debt
         amount += meter.getDebt();  //accumulate the old debt
         meter.setDebt(amount);      //set the updated debt
@@ -76,6 +77,16 @@ public class ReadingService {
         //save monthly
         //monthlyConsumptionService.save(newReading);
         return readingRepo.save(newReading);
+    }
+
+    /**
+     * convert form 2022-02-26 3:40:32 to 2022-02-26T03:40:32
+     * @param oldDate
+     * @return
+     */
+    public LocalDateTime convertTimeStamp(String oldDate) {
+        String[] tkns = oldDate.split(" ");
+        return LocalDateTime.parse(tkns[0]+"T0"+tkns[1]);
     }
 
     /**
