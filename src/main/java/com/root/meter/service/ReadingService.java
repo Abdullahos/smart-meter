@@ -86,7 +86,7 @@ public class ReadingService {
      */
     public LocalDateTime convertTimeStamp(String oldDate) {
         String[] tkns = oldDate.split(" ");
-        return LocalDateTime.parse(tkns[0]+"T0"+tkns[1]);
+        return LocalDateTime.parse(tkns[0]+"T"+tkns[1]);
     }
 
     /**
