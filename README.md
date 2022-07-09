@@ -14,6 +14,9 @@
 
 Another very important reason is the customer can’t connect directly to his smart meter as security-wise. Hence the machine learning models are deployed on the meter to provide the on-edge concept, so the results of these models have to be sent to the user through a trusted subsystem. This subsystem is the head-end system. Our application is a spring boot app that runs multiple services that can be accessed by authorized REST API requests. We use the Microsoft SQL database to store persistent data like users, meters, consumption, and payments. 
 
+## Our Overall System Architecture
+![overviewsysdesign](https://user-images.githubusercontent.com/51336081/178088183-a468c441-5748-4c7b-b624-12ac6882a865.png)
+
 ## Software Architecture on cloud
 
 - The Most Abstract view
