@@ -159,6 +159,7 @@ As usual we needed to ask ourselves in the designing phase some questions:
 - Q2 which programming language to use?
 - Q3 Do we need a toolkit or framework?
 - Q4 which database to use?
+
 **Our answers to these questions are based on our needs and our project scope**
 
 - A1 our project is embedded linux which is targeted to run on the f1c200, so we need the possible lightest web server which is lighttpd.
