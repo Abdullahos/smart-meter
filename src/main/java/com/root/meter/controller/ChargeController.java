@@ -2,10 +2,12 @@ package com.root.meter.controller;
 
 import com.root.meter.DTO.ChargeRequest;
 import com.root.meter.DTO.PaymentView;
+import com.root.meter.model.Bill;
 import com.root.meter.model.Payment;
 import com.root.meter.service.MeterService;
 import com.root.meter.service.PaymentService;
 import com.root.meter.service.StripeService;
+import com.root.meter.service.UserService;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,7 @@ public class ChargeController {
     private MeterService meterService;
     @Autowired
     private PaymentService paymentService;
+
 
     @PostMapping("/charge")
     public String charge(ChargeRequest chargeRequest, Model model)

@@ -36,4 +36,5 @@ public class BillController {
         model.addAttribute("currency", ChargeRequest.Currency.EUR);
         return "bill";
     }
+
 }
