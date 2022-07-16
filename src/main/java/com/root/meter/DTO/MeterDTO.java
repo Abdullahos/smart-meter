@@ -12,7 +12,7 @@ import java.util.List;
 public class MeterDTO {
     private Long id;
     private Long userId;
-    private List<Reading> readingList;
+//    private List<Reading> readingList;
     private Double debt = 0.0;
     private Double energyDebt = 0.0;
 
