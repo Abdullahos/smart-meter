@@ -1,6 +1,8 @@
 package com.root.meter.api;
 
 import com.root.meter.DTO.UserDTO;
+import com.root.meter.Exception.ObjectNotFoundException;
+import com.root.meter.Requests.UpdateUserRequest;
 import com.root.meter.model.Meter;
 import com.root.meter.model.Users;
 import com.root.meter.service.MeterService;
@@ -56,6 +58,24 @@ public class UserApi {
         else {
             return new ResponseEntity<UserDTO>(userService.userToDTO(savedUser),HttpStatus.CREATED);
         }
+    }
+    @PostMapping("/update")
+    public ResponseEntity<UserDTO> update(@RequestBody UpdateUserRequest req){
+        if(req.getId() == null) throw new ObjectNotFoundException("user id can't be null");
+        Users userById = userService.findById(req.getId());
+        //update name
+        if(req.getName()!=null){
+            userById.setName(req.getName());
+        }
+        //update password
+        if(req.getPassword()!=null){
+            if(req.getPassword().equals(req.getConfirmPassword())){
+                userById.setPassword( bCryptPasswordEncoder.encode(req.getPassword()));
+            }
+        }
+        Users saved = userService.save(userById);
+        UserDTO userDTO = userService.userToDTO(saved);
+        return new ResponseEntity<UserDTO>(userDTO,HttpStatus.CREATED);
     }
     @GetMapping("/find/ById")
     public ResponseEntity<UserDTO> get(@RequestParam Long id){
